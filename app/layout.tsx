@@ -14,7 +14,12 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: 'Aftab Brothers — Luxury Curtains & Drapes',
-  description: 'Premium curtains, custom drapes and elegant blinds for homes and businesses in Lahore. Serving since 2005.',
+  description: 'Premium curtains, custom drapes and elegant blinds for homes and businesses in Gujrat. Serving since 2005.',
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
 };
 
 export default function RootLayout({

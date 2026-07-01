@@ -27,10 +27,6 @@ export function GallerySection() {
 
       <div
         style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gridTemplateRows: 'auto',
-          gap: '1rem',
           maxWidth: 1200,
           margin: '0 auto',
         }}
@@ -40,14 +36,13 @@ export function GallerySection() {
           <div
             key={item.label}
             data-label={item.label}
-            className={`gallery-item ${item.className} reveal reveal-delay-${(index % 4) + 1}`}
+            className={`gallery-item ${item.className} reveal reveal-delay-${(index % 4) + 1}${index === 0 ? ' gallery-item--featured' : ''}`}
             style={{
               borderRadius: 3,
               overflow: 'hidden',
               position: 'relative',
               minHeight: 240,
               background: '#2a2a2a',
-              ...(index === 0 ? { gridColumn: 'span 2', gridRow: 'span 2' } : {}),
             }}
           >
             <img
@@ -57,6 +52,7 @@ export function GallerySection() {
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
+                display: 'block',
               }}
             />
             <div
@@ -86,7 +82,19 @@ export function GallerySection() {
         ))}
       </div>
 
-      <style jsx>{`
+      <style>{`
+        .gallery-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          grid-template-rows: auto;
+          gap: 1rem;
+        }
+
+        .gallery-item--featured {
+          grid-column: span 2;
+          grid-row: span 2;
+        }
+
         .gallery-item {
           box-shadow: 0 14px 32px rgba(0, 0, 0, 0.14);
           transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -106,59 +114,51 @@ export function GallerySection() {
         }
 
         @keyframes slideInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(30px); }
+          to   { opacity: 1; transform: translateY(0); }
         }
 
         .gallery-item {
           animation: slideInUp 0.6s ease-out forwards;
         }
 
-        .gallery-item.reveal-delay-1 {
-          animation-delay: 0.1s;
-        }
+        .gallery-item.reveal-delay-1 { animation-delay: 0.1s; }
+        .gallery-item.reveal-delay-2 { animation-delay: 0.2s; }
+        .gallery-item.reveal-delay-3 { animation-delay: 0.3s; }
+        .gallery-item.reveal-delay-4 { animation-delay: 0.4s; }
 
-        .gallery-item.reveal-delay-2 {
-          animation-delay: 0.2s;
-        }
-
-        .gallery-item.reveal-delay-3 {
-          animation-delay: 0.3s;
-        }
-
-        .gallery-item.reveal-delay-4 {
-          animation-delay: 0.4s;
-        }
-
-        @media (max-width: 900px) {
+        /* Tablet */
+        @media (max-width: 1024px) {
           .gallery-grid {
-            grid-template-columns: 1fr 1fr !important;
-            grid-template-rows: repeat(3, 180px) !important;
-          }
-
-          .gallery-item:first-child {
-            grid-column: span 2 !important;
-            grid-row: span 2 !important;
+            grid-template-columns: repeat(3, 1fr);
           }
         }
 
-        @media (max-width: 600px) {
+        /* Small tablet */
+        @media (max-width: 768px) {
           .gallery-grid {
-            grid-template-columns: 1fr !important;
-            grid-template-rows: auto !important;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto;
+          }
+
+          .gallery-item--featured {
+            grid-column: span 2;
+            grid-row: span 1;
+            min-height: 280px;
+          }
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+          .gallery-grid {
+            grid-template-columns: 1fr;
           }
 
           .gallery-item,
-          .gallery-item:first-child {
+          .gallery-item--featured {
             grid-column: auto !important;
             grid-row: auto !important;
-            min-height: 240px !important;
+            min-height: 220px !important;
           }
         }
       `}</style>

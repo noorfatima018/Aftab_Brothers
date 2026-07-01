@@ -3,17 +3,19 @@ import { whyItems } from '@/lib/site-content';
 export function WhySection() {
   return (
     <section id="why" style={{ background: 'var(--ivory)' }}>
-      <div style={{ display: 'flex', gap: '5rem', alignItems: 'center', maxWidth: 1200, margin: '0 auto' }}>
-        <div style={{ flex: 1 }} className="reveal">
+      <div className="why-inner">
+        {/* Left: heading */}
+        <div className="why-heading reveal">
           <div className="section-eyebrow">Our Difference</div>
-          <h2 className="section-title">Why Lahore Trusts <br />Aftab Brothers</h2>
+          <h2 className="section-title">Why Gujrat Trusts <br />Aftab Brothers</h2>
           <div className="divider" />
           <p className="section-body">
             We do not just sell curtains - we deliver an end-to-end experience rooted in quality, honesty, and lasting relationships with every client.
           </p>
         </div>
 
-        <div style={{ flex: 1 }}>
+        {/* Right: items list */}
+        <div className="why-list">
           {whyItems.map((item, index) => (
             <div
               key={item.number}
@@ -36,6 +38,39 @@ export function WhySection() {
           ))}
         </div>
       </div>
+
+      <style>{`
+        .why-inner {
+          display: flex;
+          gap: 5rem;
+          align-items: flex-start;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .why-heading {
+          flex: 1;
+          min-width: 0;
+        }
+
+        .why-list {
+          flex: 1;
+          min-width: 0;
+        }
+
+        @media (max-width: 900px) {
+          .why-inner {
+            flex-direction: column;
+            gap: 2.5rem;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .why-inner {
+            gap: 2rem;
+          }
+        }
+      `}</style>
     </section>
   );
 }

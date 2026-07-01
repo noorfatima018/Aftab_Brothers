@@ -189,9 +189,11 @@ export function HeroSection() {
             justifyContent: 'center',
             flexWrap: 'wrap',
           }}
+          className="hero-cta"
         >
           <a
             href="#gallery"
+            className="hero-btn hero-btn--primary"
             style={{
               padding: '0.9rem 2.2rem',
               background: 'var(--gold)',
@@ -203,12 +205,17 @@ export function HeroSection() {
               textDecoration: 'none',
               borderRadius: 2,
               transition: 'background 0.25s',
+              minHeight: 48,
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
             View Collection
           </a>
           <a
             href="#contact"
+            className="hero-btn hero-btn--outline"
             style={{
               padding: '0.9rem 2.2rem',
               border: '1px solid rgba(255,255,255,0.35)',
@@ -219,6 +226,10 @@ export function HeroSection() {
               textDecoration: 'none',
               borderRadius: 2,
               transition: 'border-color 0.25s, color 0.25s',
+              minHeight: 48,
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
             Book Consultation
@@ -281,6 +292,21 @@ export function HeroSection() {
         @keyframes scrollPulse {
           0%, 100% { opacity: 1; transform: translateX(-50%) translateY(0); }
           50% { opacity: 0.3; transform: translateX(-50%) translateY(6px); }
+        }
+
+        @media (max-width: 480px) {
+          .hero-cta {
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            padding: 0 1rem;
+          }
+
+          .hero-btn {
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+          }
         }
       `}</style>
     </section>

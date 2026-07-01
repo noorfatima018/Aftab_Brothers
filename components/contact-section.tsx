@@ -78,13 +78,13 @@ export function ContactSection() {
         </p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '5rem', maxWidth: 1000, margin: '3rem auto 0' }}>
-        <div className="reveal">
-
+      <div className="contact-grid">
+        {/* Contact info */}
+        <div className="reveal contact-info">
           {[
             ['Address', 'Abdullah Plaza, Near Allied Bank\nShadiwal Road, Gujrat', '📍'],
             ['Phone', '+92 300 6236661', '📞'],
-            ['Business Hours', 'Mondaay – Saturday: 9:00 AM – 8:00 PM\nFriday: CLOSED', '🕐'],
+            ['Business Hours', 'Monday – Saturday: 9:00 AM – 8:00 PM\nFriday: CLOSED', '🕐'],
             ['Email', 'hassanaftab666@gmail.com', '✉️'],
           ].map(([label, value, icon]) => (
             <div key={label as string} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start', marginBottom: '2rem' }}>
@@ -99,7 +99,8 @@ export function ContactSection() {
           ))}
         </div>
 
-        <form className="reveal reveal-delay-1" onSubmit={handleSubmit}>
+        {/* Form */}
+        <form className="reveal reveal-delay-1 contact-form" onSubmit={handleSubmit}>
           {[
             ['Your Name', 'name', 'e.g. Fatima Ahmed', 'text'],
             ['Phone Number', 'phone', '+92 300 0000000', 'tel'],
@@ -125,23 +126,23 @@ export function ContactSection() {
             <select
               value={form.service}
               onChange={(event) => setForm((current) => ({ ...current, service: event.target.value }))}
-              style={{ 
-                width: '100%', 
-                background: '#1a1a1a', 
-                border: '1px solid rgba(201,168,76,0.3)', 
-                borderRadius: 2, 
-                padding: '0.8rem 1rem', 
-                color: '#fff', 
+              style={{
+                width: '100%',
+                background: '#1a1a1a',
+                border: '1px solid rgba(201,168,76,0.3)',
+                borderRadius: 2,
+                padding: '0.8rem 1rem',
+                color: '#fff',
                 outline: 'none',
                 fontSize: '0.95rem',
               }}
             >
               <option value="" style={{ background: '#1a1a1a', color: '#fff' }}>Select a service…</option>
               <option style={{ background: '#1a1a1a', color: '#fff' }}>Custom Curtains</option>
-              <option style={{ background: '#1a1a1a', color: '#fff' }}>Paling & Blinds</option>
+              <option style={{ background: '#1a1a1a', color: '#fff' }}>Paling &amp; Blinds</option>
               <option style={{ background: '#1a1a1a', color: '#fff' }}>Sofa Cloths</option>
               <option style={{ background: '#1a1a1a', color: '#fff' }}>Wallpaper Installation</option>
-              <option style={{ background: '#1a1a1a', color: '#fff' }}>Custom Design & Consultation</option>
+              <option style={{ background: '#1a1a1a', color: '#fff' }}>Custom Design &amp; Consultation</option>
               <option style={{ background: '#1a1a1a', color: '#fff' }}>Professional Installation</option>
               <option style={{ background: '#1a1a1a', color: '#fff' }}>Other</option>
             </select>
@@ -176,12 +177,37 @@ export function ContactSection() {
               cursor: isLoading ? 'not-allowed' : 'pointer',
               marginTop: '0.5rem',
               opacity: isLoading ? 0.7 : 1,
+              minHeight: 48,
             }}
           >
             {submitLabel}
           </button>
         </form>
       </div>
+
+      <style>{`
+        .contact-grid {
+          display: grid;
+          grid-template-columns: 1fr 1.2fr;
+          gap: 5rem;
+          max-width: 1000px;
+          margin: 3rem auto 0;
+        }
+
+        @media (max-width: 900px) {
+          .contact-grid {
+            grid-template-columns: 1fr;
+            gap: 3rem;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .contact-grid {
+            gap: 2rem;
+            margin-top: 2rem;
+          }
+        }
+      `}</style>
     </section>
   );
 }
