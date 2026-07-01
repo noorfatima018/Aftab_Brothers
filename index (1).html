@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aftab Brothers — Luxury Curtains & Drapes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ivory:   #FAF7F2;
+      --charcoal:#1A1A1A;
+      --burgundy:#7B2D42;
+      --gold:    #C9A84C;
+      --cream:   #F0EAE0;
+      --muted:   #6B6056;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--ivory);
+      color: var(--charcoal);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(250,247,242,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.08); }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      letter-spacing: 0.02em;
+    }
+    .nav-logo span { color: var(--gold); }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--burgundy); }
+
+    .nav-cta {
+      padding: 0.6rem 1.4rem;
+      background: var(--burgundy);
+      color: #fff !important;
+      border-radius: 2px;
+      letter-spacing: 0.06em;
+    }
+    .nav-cta:hover { background: #5e2132 !important; color: #fff !important; }
+
+    /* ── HERO / CURTAIN REVEAL ── */
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 640px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      background: var(--charcoal);
+    }
+
+    /* Background texture pattern */
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        repeating-linear-gradient(90deg, rgba(201,168,76,0.04) 0px, rgba(201,168,76,0.04) 1px, transparent 1px, transparent 60px),
+        repeating-linear-gradient(0deg, rgba(201,168,76,0.04) 0px, rgba(201,168,76,0.04) 1px, transparent 1px, transparent 60px);
+      z-index: 0;
+    }
+
+    /* Curtain panels */
+    .curtain-left, .curtain-right {
+      position: absolute; top: 0; bottom: 0;
+      width: 52%;
+      z-index: 2;
+      animation: none;
+    }
+    .curtain-left  { left: 0; transform-origin: left center; }
+    .curtain-right { right: 0; transform-origin: right center; }
+
+    .curtain-left  { animation: curtainOpenLeft  1.6s cubic-bezier(0.77,0,0.175,1) 0.6s forwards; }
+    .curtain-right { animation: curtainOpenRight 1.6s cubic-bezier(0.77,0,0.175,1) 0.6s forwards; }
+
+    @keyframes curtainOpenLeft  { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+    @keyframes curtainOpenRight { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+
+    /* Curtain fabric texture */
+    .curtain-left {
+      background:
+        repeating-linear-gradient(90deg,
+          rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 2px,
+          transparent 2px, transparent 28px),
+        linear-gradient(180deg, #5c1e2e 0%, #7B2D42 30%, #6a2639 70%, #4a1626 100%);
+    }
+    .curtain-right {
+      background:
+        repeating-linear-gradient(90deg,
+          transparent 0px, transparent 26px,
+          rgba(255,255,255,0.03) 26px, rgba(255,255,255,0.03) 28px),
+        linear-gradient(180deg, #5c1e2e 0%, #7B2D42 30%, #6a2639 70%, #4a1626 100%);
+    }
+
+    /* Curtain rod */
+    .curtain-rod {
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 18px;
+      background: linear-gradient(180deg, #c9a84c, #a07828, #c9a84c);
+      z-index: 10;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    .curtain-rod::before,
+    .curtain-rod::after {
+      content: ''; position: absolute; top: -8px;
+      width: 32px; height: 32px;
+      background: radial-gradient(circle, #e8c060, #a07828);
+      border-radius: 50%;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+    }
+    .curtain-rod::before { left: -8px; }
+    .curtain-rod::after  { right: -8px; }
+
+    /* Rings along rod */
+    .curtain-rings {
+      position: absolute; top: 4px; left: 0; right: 0;
+      height: 10px; z-index: 11;
+      display: flex; justify-content: space-evenly;
+    }
+    .curtain-rings span {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #e8c060, #a07828);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    }
+
+    /* Hero content */
+    .hero-content {
+      position: relative; z-index: 1;
+      text-align: center;
+      opacity: 0;
+      animation: fadeInUp 1s ease 2s forwards;
+      padding: 0 2rem;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+    .hero-eyebrow::before,
+    .hero-eyebrow::after {
+      content: '—';
+      margin: 0 0.6rem;
+      opacity: 0.6;
+    }
+
+    .hero-h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 0.4rem;
+    }
+    .hero-h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.62);
+      margin: 1.4rem auto 2.4rem;
+      max-width: 480px;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    .btn-primary {
+      padding: 0.9rem 2.2rem;
+      background: var(--gold);
+      color: var(--charcoal);
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .btn-primary:hover { background: #e0b955; transform: translateY(-2px); }
+
+    .btn-ghost {
+      padding: 0.9rem 2.2rem;
+      border: 1px solid rgba(255,255,255,0.35);
+      color: rgba(255,255,255,0.85);
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: border-color 0.25s, color 0.25s, transform 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute; bottom: 2.5rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      opacity: 0;
+      animation: fadeInUp 1s ease 2.8s forwards;
+      z-index: 2;
+    }
+    .scroll-hint span {
+      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+    .scroll-mouse {
+      width: 22px; height: 36px;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      border-radius: 12px;
+      position: relative;
+    }
+    .scroll-mouse::after {
+      content: '';
+      position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
+      width: 3px; height: 8px;
+      background: rgba(255,255,255,0.5);
+      border-radius: 2px;
+      animation: scrollBounce 1.5s infinite;
+    }
+    @keyframes scrollBounce {
+      0%,100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+      50%      { opacity: 0; transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 6rem 4rem; }
+
+    .section-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--charcoal);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .section-body {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 560px;
+    }
+
+    /* Fade-in on scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.35s; }
+    .reveal-delay-4 { transition-delay: 0.5s; }
+
+    /* ── ABOUT STRIP ── */
+    #about {
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      gap: 5rem;
+      padding: 5rem 4rem;
+    }
+
+    .about-visual {
+      flex: 0 0 420px;
+      position: relative;
+    }
+    .about-img-frame {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: linear-gradient(135deg, #7B2D42 0%, #4a1626 100%);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+    /* Simulated curtain fabric pattern */
+    .about-img-frame::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        repeating-linear-gradient(90deg,
+          rgba(255,255,255,0.06) 0px, rgba(255,255,255,0.06) 3px,
+          transparent 3px, transparent 40px),
+        repeating-linear-gradient(0deg,
+          rgba(0,0,0,0.1) 0px, rgba(0,0,0,0.1) 1px,
+          transparent 1px, transparent 24px);
+    }
+    .about-img-frame::after {
+      content: 'Aftab Brothers\A Est. 2005';
+      white-space: pre;
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.25);
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .about-badge {
+      position: absolute;
+      bottom: -1.5rem; right: -1.5rem;
+      width: 110px; height: 110px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    }
+    .about-badge .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 700;
+      color: var(--charcoal);
+      line-height: 1;
+    }
+    .about-badge .lbl {
+      font-size: 0.62rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--charcoal);
+      text-align: center;
+    }
+
+    .about-text { flex: 1; }
+
+    .about-stats {
+      display: flex; gap: 2.5rem; margin-top: 2.5rem;
+    }
+    .stat .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem; font-weight: 700; color: var(--burgundy);
+    }
+    .stat .lbl {
+      font-size: 0.78rem; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-top: 0.2rem;
+    }
+
+    /* ── SERVICES ── */
+    #services {
+      background: var(--ivory);
+    }
+    .services-header {
+      text-align: center; margin-bottom: 4rem;
+    }
+    .services-header .section-body { margin: 0 auto; text-align: center; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      background: #fff;
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 4px;
+      padding: 2.5rem 2rem;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      cursor: default;
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+      border-color: var(--gold);
+    }
+
+    .service-icon {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, rgba(123,45,66,0.1), rgba(201,168,76,0.12));
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .service-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-bottom: 0.7rem;
+    }
+    .service-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* ── GALLERY ── */
+    #gallery {
+      background: var(--charcoal);
+      padding: 6rem 4rem;
+    }
+    #gallery .section-title { color: #fff; }
+    .gallery-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 3rem;
+    }
+    .gallery-header .section-body { color: rgba(255,255,255,0.45); }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 260px 200px;
+      gap: 1rem;
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    .gallery-item {
+      border-radius: 3px;
+      overflow: hidden;
+      position: relative;
+      background: #2a2a2a;
+      cursor: pointer;
+    }
+    .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+
+    /* Fabric swatch simulations */
+    .gallery-item::before {
+      content: attr(data-label);
+      position: absolute; bottom: 1rem; left: 1rem;
+      font-size: 0.75rem; letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      z-index: 2;
+      background: rgba(0,0,0,0.4);
+      padding: 0.3rem 0.7rem;
+      border-radius: 2px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .gallery-item:hover::before { opacity: 1; }
+
+    .gallery-item::after {
+      content: '';
+      position: absolute; inset: 0;
+      opacity: 0;
+      background: rgba(123,45,66,0.3);
+      transition: opacity 0.3s;
+    }
+    .gallery-item:hover::after { opacity: 1; }
+
+    /* Simulated fabric patterns for gallery */
+    .gi-1 { background: repeating-linear-gradient(90deg, #5c1e2e 0px,#5c1e2e 4px, #7B2D42 4px, #7B2D42 36px); }
+    .gi-2 { background: repeating-linear-gradient(45deg, #1a3a4a 0px,#1a3a4a 8px, #204055 8px, #204055 24px); }
+    .gi-3 { background: repeating-linear-gradient(0deg,  #2c2c1a 0px,#2c2c1a 6px, #3d3d22 6px, #3d3d22 20px); }
+    .gi-4 { background: linear-gradient(135deg, #3a2a1a, #5a3f28); }
+    .gi-5 { background: repeating-linear-gradient(90deg, #1a1a3a 0px,#1a1a3a 10px, #252545 10px, #252545 30px); }
+
+    /* ── WHY US ── */
+    #why {
+      background: var(--ivory);
+      padding: 6rem 4rem;
+    }
+
+    .why-layout {
+      display: flex; gap: 5rem;
+      align-items: center;
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    .why-text { flex: 1; }
+    .why-list { flex: 1; }
+
+    .why-item {
+      display: flex; gap: 1.2rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+    }
+    .why-item:first-child { border-top: 1px solid rgba(0,0,0,0.07); }
+
+    .why-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; font-weight: 700;
+      color: var(--gold);
+      opacity: 0.45;
+      flex: 0 0 3rem;
+      line-height: 1.2;
+    }
+
+    .why-item-content h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 600;
+      color: var(--charcoal);
+      margin-bottom: 0.35rem;
+    }
+    .why-item-content p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials {
+      background: var(--burgundy);
+      padding: 5rem 4rem;
+      text-align: center;
+    }
+    #testimonials .section-title { color: #fff; }
+    #testimonials .section-eyebrow { color: var(--gold); }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      max-width: 1100px; margin: 3rem auto 0;
+    }
+
+    .testi-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 4px;
+      padding: 2rem;
+      text-align: left;
+      transition: background 0.3s;
+    }
+    .testi-card:hover { background: rgba(255,255,255,0.13); }
+
+    .testi-stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 1rem; }
+    .testi-text { font-size: 0.92rem; color: rgba(255,255,255,0.8); line-height: 1.7; font-style: italic; margin-bottom: 1.2rem; }
+    .testi-author { font-size: 0.8rem; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--charcoal);
+      padding: 6rem 4rem;
+    }
+    #contact .section-title { color: #fff; }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 5rem;
+      max-width: 1000px; margin: 3rem auto 0;
+    }
+
+    .contact-info { }
+    .contact-info-item {
+      display: flex; gap: 1rem; align-items: flex-start;
+      margin-bottom: 2rem;
+    }
+    .contact-info-icon {
+      width: 40px; height: 40px;
+      background: rgba(201,168,76,0.12);
+      border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex: 0 0 40px;
+    }
+    .contact-info-text .lbl {
+      font-size: 0.7rem; letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.2rem;
+    }
+    .contact-info-text .val {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.5;
+    }
+
+    .contact-form { }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 0.4rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 2px;
+      padding: 0.8rem 1rem;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--gold); }
+    .form-group textarea { height: 110px; resize: vertical; }
+    .form-group select option { background: var(--charcoal); }
+
+    .form-submit {
+      width: 100%;
+      padding: 1rem;
+      background: var(--gold);
+      color: var(--charcoal);
+      border: none;
+      border-radius: 2px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      margin-top: 0.5rem;
+    }
+    .form-submit:hover { background: #e0b955; transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #111;
+      padding: 3rem 4rem;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(201,168,76,0.15);
+    }
+    .footer-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; font-weight: 700;
+      color: #fff;
+    }
+    .footer-brand span { color: var(--gold); }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.3);
+    }
+    .footer-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+    .footer-links a {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+
+    /* divider */
+    .divider {
+      width: 48px; height: 2px;
+      background: var(--gold);
+      margin: 1.2rem 0 1.8rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 4rem 1.5rem; }
+      #about { flex-direction: column; gap: 3rem; padding: 4rem 1.5rem; }
+      .about-visual { flex: 0 0 auto; width: 100%; max-width: 340px; }
+      .why-layout { flex-direction: column; gap: 2.5rem; }
+      .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+      .gallery-grid { grid-template-columns: repeat(2,1fr); grid-template-rows: auto; }
+      .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+      .gallery-header { flex-direction: column; gap: 1rem; align-items: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .curtain-left, .curtain-right, .hero-content, .scroll-hint { animation: none; opacity: 1; transform: none; }
+      .curtain-left, .curtain-right { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">Aftab <span>Brothers</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="curtain-rod">
+    <div class="curtain-rings">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+  <div class="curtain-left"></div>
+  <div class="curtain-right"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Lahore's Finest Since 2005</div>
+    <h1 class="hero-h1">Where Every Window<br>Tells a <em>Story</em></h1>
+    <p class="hero-sub">Premium curtains, custom drapes & elegant blinds — handcrafted to transform your spaces into masterpieces.</p>
+    <div class="hero-btns">
+      <a href="#gallery" class="btn-primary">View Collection</a>
+      <a href="#contact" class="btn-ghost">Book Consultation</a>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-mouse"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-visual reveal">
+    <div class="about-img-frame"></div>
+    <div class="about-badge">
+      <span class="num">20+</span>
+      <span class="lbl">Years of<br>Excellence</span>
+    </div>
+  </div>
+  <div class="about-text">
+    <div class="section-eyebrow reveal">Our Story</div>
+    <h2 class="section-title reveal">Family Craftsmanship,<br>Timeless Elegance</h2>
+    <div class="divider reveal"></div>
+    <p class="section-body reveal reveal-delay-1">
+      Aftab Brothers was founded with a single sewing machine and an eye for beauty. Today, we are Lahore's most trusted name in premium window treatments — combining traditional craftsmanship with modern design sensibilities.
+    </p>
+    <p class="section-body reveal reveal-delay-2" style="margin-top:1rem;">
+      Every curtain we create is a collaboration between artisan and client. From selection of imported fabrics to final installation, we ensure an experience as refined as the product itself.
+    </p>
+    <div class="about-stats reveal reveal-delay-3">
+      <div class="stat">
+        <div class="num">5,000+</div>
+        <div class="lbl">Happy Homes</div>
+      </div>
+      <div class="stat">
+        <div class="num">150+</div>
+        <div class="lbl">Fabric Choices</div>
+      </div>
+      <div class="stat">
+        <div class="num">48h</div>
+        <div class="lbl">Quick Install</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header">
+    <div class="section-eyebrow reveal">What We Offer</div>
+    <h2 class="section-title reveal">Our Services</h2>
+    <div class="divider reveal" style="margin:1rem auto;"></div>
+    <p class="section-body reveal">From measurement to installation, we handle everything — so you can simply enjoy the result.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon">🪟</div>
+      <h3>Custom Curtains</h3>
+      <p>Tailored to your exact window dimensions and personal style. Choose from over 150 imported and local fabrics, linings, and trims.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-icon">🏠</div>
+      <h3>Roller & Venetian Blinds</h3>
+      <p>Modern light-control solutions for offices and contemporary homes. Available in blackout, light-filtering, and sheer varieties.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-icon">✂️</div>
+      <h3>Alterations & Repairs</h3>
+      <p>Breathe new life into your existing window treatments. We re-hem, re-line, update hardware, and restore aged curtains.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-3">
+      <div class="service-icon">🚗</div>
+      <h3>Home Visit & Measurement</h3>
+      <p>Our experts visit your home, assess your space, and recommend the perfect styles — completely free of charge.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-icon">🔧</div>
+      <h3>Professional Installation</h3>
+      <p>Trained installers ensure perfect hanging, with no damage to your walls. We tidy up and leave your space spotless.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-icon">🏢</div>
+      <h3>Commercial Projects</h3>
+      <p>Hotels, offices, restaurants, and showrooms — we handle large-scale projects with dedicated project management.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gallery-header reveal">
+    <div>
+      <div class="section-eyebrow">Our Work</div>
+      <h2 class="section-title">A Glimpse of the Collection</h2>
+    </div>
+    <p class="section-body" style="max-width:300px;">Each piece crafted with intention, every room transformed with purpose.</p>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item gi-1 reveal" data-label="Royal Burgundy Velvet"></div>
+    <div class="gallery-item gi-2 reveal reveal-delay-1" data-label="Ocean Linen Sheer"></div>
+    <div class="gallery-item gi-3 reveal reveal-delay-2" data-label="Olive Silk Drape"></div>
+    <div class="gallery-item gi-4 reveal reveal-delay-1" data-label="Caramel Jacquard"></div>
+    <div class="gallery-item gi-5 reveal reveal-delay-3" data-label="Midnight Blackout"></div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="why-layout">
+    <div class="why-text reveal">
+      <div class="section-eyebrow">Our Difference</div>
+      <h2 class="section-title">Why Lahore Trusts<br>Aftab Brothers</h2>
+      <div class="divider"></div>
+      <p class="section-body">
+        We don't just sell curtains — we deliver an end-to-end experience rooted in quality, honesty, and lasting relationships with every client.
+      </p>
+    </div>
+    <div class="why-list">
+      <div class="why-item reveal">
+        <div class="why-num">01</div>
+        <div class="why-item-content">
+          <h4>Premium Imported Fabrics</h4>
+          <p>We source exclusive fabrics from Turkey, China, and the UAE — materials you won't find in ordinary stores.</p>
+        </div>
+      </div>
+      <div class="why-item reveal reveal-delay-1">
+        <div class="why-num">02</div>
+        <div class="why-item-content">
+          <h4>Precision Stitching</h4>
+          <p>Our master tailors have decades of experience. Every seam is straight, every pleat is perfect.</p>
+        </div>
+      </div>
+      <div class="why-item reveal reveal-delay-2">
+        <div class="why-num">03</div>
+        <div class="why-item-content">
+          <h4>On-Time Delivery</h4>
+          <p>We commit to deadlines. Most orders are ready and installed within 5–7 business days.</p>
+        </div>
+      </div>
+      <div class="why-item reveal reveal-delay-3">
+        <div class="why-num">04</div>
+        <div class="why-item-content">
+          <h4>After-Sale Support</h4>
+          <p>Free adjustment visits within 30 days and honest guidance on care — because our relationship doesn't end at installation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-eyebrow reveal">Client Reviews</div>
+  <h2 class="section-title reveal">What Our Clients Say</h2>
+  <div class="testimonials-grid">
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Aftab Brothers completely transformed our living room. The velvet drapes they stitched are absolutely stunning — better than any showroom piece I've seen in Lahore."</p>
+      <div class="testi-author">— Sana Tariq, DHA Phase 5</div>
+    </div>
+    <div class="testi-card reveal reveal-delay-1">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Excellent service from start to finish. They visited my home, helped me pick the right fabric, and installed everything perfectly. Highly recommend for any home project."</p>
+      <div class="testi-author">— Imran Sheikh, Gulberg III</div>
+    </div>
+    <div class="testi-card reveal reveal-delay-2">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"We used Aftab Brothers for our restaurant fitout — 14 windows, complex shapes. They delivered on time and within budget. Will use again for our next branch."</p>
+      <div class="testi-author">— Ayesha Nawaz, F&B Owner</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div style="text-align:center;max-width:600px;margin:0 auto 0;">
+    <div class="section-eyebrow reveal">Get in Touch</div>
+    <h2 class="section-title reveal">Request a Free Consultation</h2>
+    <p class="section-body reveal" style="color:rgba(255,255,255,0.45);margin:0 auto;">
+      Visit our shop, call us, or fill the form below. We'll get back to you within 24 hours.
+    </p>
+  </div>
+  <div class="contact-layout">
+    <div class="contact-info reveal">
+      <div class="contact-info-item">
+        <div class="contact-info-icon">📍</div>
+        <div class="contact-info-text">
+          <div class="lbl">Address</div>
+          <div class="val">Shop No. 14, Liberty Market,<br>Gulberg III, Lahore</div>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-info-icon">📞</div>
+        <div class="contact-info-text">
+          <div class="lbl">Phone</div>
+          <div class="val">+92 300 1234567<br>+92 42 3456 7890</div>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-info-icon">🕐</div>
+        <div class="contact-info-text">
+          <div class="lbl">Business Hours</div>
+          <div class="val">Mon – Sat: 9:00 AM – 8:00 PM<br>Sunday: 11:00 AM – 5:00 PM</div>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-info-icon">✉️</div>
+        <div class="contact-info-text">
+          <div class="lbl">Email</div>
+          <div class="val">info@aftabbrothers.pk</div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form reveal reveal-delay-1">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" placeholder="e.g. Fatima Ahmed" />
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" placeholder="+92 300 0000000" />
+      </div>
+      <div class="form-group">
+        <label>Service Needed</label>
+        <select>
+          <option value="">Select a service…</option>
+          <option>Custom Curtains</option>
+          <option>Roller / Venetian Blinds</option>
+          <option>Alterations & Repairs</option>
+          <option>Commercial Project</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Your Message</label>
+        <textarea placeholder="Tell us about your project…"></textarea>
+      </div>
+      <button class="form-submit">Send Enquiry →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Aftab <span>Brothers</span></div>
+  <p class="footer-copy">© 2025 Aftab Brothers Curtains. All rights reserved.</p>
+  <ul class="footer-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</footer>
+
+<script>
+  // Navbar shadow on scroll
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => observer.observe(r));
+
+  // Form submit feedback
+  document.querySelector('.form-submit').addEventListener('click', function() {
+    const name = document.querySelector('input[type="text"]').value.trim();
+    if (!name) { alert('Please enter your name.'); return; }
+    this.textContent = '✓ Enquiry Sent!';
+    this.style.background = '#4caf72';
+    this.style.color = '#fff';
+    setTimeout(() => {
+      this.textContent = 'Send Enquiry →';
+      this.style.background = '';
+      this.style.color = '';
+    }, 3000);
+  });
+</script>
+</body>
+</html>
