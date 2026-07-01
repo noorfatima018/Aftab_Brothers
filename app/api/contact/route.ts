@@ -37,8 +37,8 @@ export async function POST(request: NextRequest) {
     // Send email to business owner
     await transporter.sendMail({
       from: process.env.GMAIL_USER,
-      to: 'hassanaftab666@gmail.com',
-      subject: `New Enquiry from ${name}`,
+      to: 'iamabdullahtanveer@gmail.com',
+      subject: `New Enquiry from ${name} - Aftab Brothers`,
       html: businessEmailContent,
     });
 
@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
 
     await transporter.sendMail({
       from: process.env.GMAIL_USER,
-      to: phone.includes('@') ? phone : 'hassanaftab666@gmail.com',
+      to: phone.includes('@') ? phone : 'iamabdullahtanveer@gmail.com',
       subject: 'We Received Your Enquiry - Aftab Brothers',
       html: customerEmailContent,
     });
