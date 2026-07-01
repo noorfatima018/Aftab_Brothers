@@ -32,7 +32,7 @@ export function ContactSection() {
     setSubmitLabel('Sending...');
 
     try {
-      const response = await fetch('https://formsubmit.co/ajax/iamabdullahtanveer@gmail.com', {
+      const response = await fetch('https://formsubmit.co/ajax/hassanaftab666@gmail.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
